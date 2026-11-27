@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { money } from '../api';
-import { useCart } from '../store';
+import { useAuth, useCart } from '../store';
 import { EmptyState, ProductArt, Spinner, useToast } from '../ui';
 
 export default function CartPage() {
   const { cart, setQuantity, removeItem, refreshCart, count } = useCart();
+  const { user } = useAuth();
   const toast = useToast();
   const [busyId, setBusyId] = useState<string | null>(null);
 
@@ -64,6 +65,11 @@ export default function CartPage() {
         <div>
           <h1 style={{ fontSize: '1.7rem' }}>سلة المشتريات</h1>
           <p>{count} قطعة في السلة</p>
+          {!user ? (
+            <p className="muted small">
+              سلتك محفوظة على هذا المتصفح، وستُضاف إلى حسابك تلقائياً عند تسجيل الدخول لإتمام الطلب.
+            </p>
+          ) : null}
         </div>
       </div>
 
@@ -133,8 +139,8 @@ export default function CartPage() {
             <span>الإجمالي</span>
             <span>{money(cart.summary.subtotal, cart.summary.currency ?? 'SAR')}</span>
           </div>
-          <Link className="btn btn--block" to="/checkout" style={{ marginBlockStart: 18 }}>
-            متابعة الدفع
+          <Link className="btn btn--buy btn--block" to="/checkout" style={{ marginBlockStart: 18 }}>
+            {user ? 'متابعة الدفع' : 'تسجيل الدخول وإتمام الطلب'}
           </Link>
           <Link className="btn btn--ghost btn--block" to="/products" style={{ marginBlockStart: 10 }}>
             متابعة التسوّق

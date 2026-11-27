@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink, Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { useAuth, useCart } from './store';
@@ -11,6 +11,7 @@ import OrdersPage from './pages/OrdersPage';
 import OrderDetailPage from './pages/OrderDetailPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import AccountPage from './pages/AccountPage';
 import AdminPage from './pages/AdminPage';
 import NotFound from './pages/NotFound';
 
@@ -53,6 +54,18 @@ function Layout() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    setOpen(false);
+    if (location.hash) {
+      const target = document.getElementById(location.hash.slice(1));
+      if (target) {
+        target.scrollIntoView({ block: 'start' });
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location.pathname, location.hash]);
+
   return (
     <div className="shell">
       <header className="header">
@@ -68,6 +81,7 @@ function Layout() {
               </NavLink>
             ))}
             {user?.role === 'ADMIN' ? <NavLink to="/admin">لوحة الإدارة</NavLink> : null}
+            {user ? <NavLink to="/account">حسابي</NavLink> : null}
           </nav>
           <div className="header__actions">
             <button
@@ -84,14 +98,19 @@ function Layout() {
               {count > 0 ? <span className="cart-dot">{count}</span> : null}
             </Link>
             {user ? (
-              <button
-                type="button"
-                className="btn btn--ghost btn--sm"
-                onClick={() => void signOut()}
-                aria-label="تسجيل الخروج"
-              >
-                خروج
-              </button>
+              <>
+                <Link to="/account" className="icon-btn" aria-label="حسابي">
+                  <UserIcon />
+                </Link>
+                <button
+                  type="button"
+                  className="btn btn--ghost btn--sm"
+                  onClick={() => void signOut()}
+                  aria-label="تسجيل الخروج"
+                >
+                  خروج
+                </button>
+              </>
             ) : (
               <Link to="/login" className="icon-btn" aria-label="حسابي">
                 <UserIcon />
@@ -100,18 +119,21 @@ function Layout() {
           </div>
         </div>
         {open ? (
-          <div className="container mobile-nav" onClick={() => setOpen(false)}>
+          <nav className="container mobile-nav" aria-label="قائمة الهاتف" onClick={() => setOpen(false)}>
             {LINKS.map((link) => (
               <NavLink key={link.to} to={link.to} end={link.end}>
                 {link.label}
               </NavLink>
             ))}
             {user?.role === 'ADMIN' ? <NavLink to="/admin">لوحة الإدارة</NavLink> : null}
+            {user ? <NavLink to="/account">حسابي</NavLink> : null}
             {!user ? <NavLink to="/login">تسجيل الدخول</NavLink> : null}
-            <span className="muted small" style={{ padding: '4px 12px' }}>
-              {location.pathname}
-            </span>
-          </div>
+            {user ? (
+              <button type="button" className="mobile-nav__signout" onClick={() => void signOut()}>
+                تسجيل الخروج
+              </button>
+            ) : null}
+          </nav>
         ) : null}
       </header>
 
@@ -188,14 +210,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="products" element={<Catalog />} />
         <Route path="products/:slug" element={<ProductPage />} />
-        <Route
-          path="cart"
-          element={
-            <RequireAuth>
-              <CartPage />
-            </RequireAuth>
-          }
-        />
+        <Route path="cart" element={<CartPage />} />
         <Route
           path="checkout"
           element={
@@ -217,6 +232,14 @@ export default function App() {
           element={
             <RequireAuth>
               <OrderDetailPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="account"
+          element={
+            <RequireAuth>
+              <AccountPage />
             </RequireAuth>
           }
         />

@@ -1,0 +1,262 @@
+
+/* Card purchase actions */
+.card__link {
+  display: block;
+}
+
+.card__buy {
+  display: flex;
+  gap: 8px;
+  margin-block-start: 10px;
+}
+
+.card__buy .btn {
+  flex: 1 1 0;
+  padding-inline: 10px;
+}
+
+/* Gallery */
+.gallery {
+  display: grid;
+  gap: 12px;
+}
+
+.gallery__main {
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+}
+
+.gallery__thumbs {
+  display: flex;
+  gap: 10px;
+}
+
+.gallery__thumb {
+  width: 76px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+}
+
+.gallery__thumb .art {
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+}
+
+.gallery__thumb.active {
+  border-color: var(--brand);
+}
+
+.gallery__thumb:hover {
+  border-color: #cfc8b8;
+}
+
+.trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.trust-strip span {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #f2eee5;
+}
+
+/* Product detail body */
+.detail__body {
+  display: grid;
+  gap: 6px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.stars > span {
+  color: #6f4304;
+  letter-spacing: 2px;
+  line-height: 1.4;
+}
+
+.stars strong {
+  color: var(--ink);
+}
+
+.buy-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-block-end: 20px;
+}
+
+.buy-row .btn {
+  min-width: 160px;
+  flex: 1 1 160px;
+}
+
+.buy-row .qty {
+  flex: none;
+}
+
+.feature-card {
+  margin-block-start: 6px;
+}
+
+.feature-card .summary-row:last-child {
+  border-bottom: 0;
+}
+
+.feature-card .summary-row strong {
+  text-align: end;
+}
+
+/* Tabs */
+.product-tabs {
+  margin-block-start: 8px;
+}
+
+.product-tabs .tabs {
+  margin-block: 0 14px;
+}
+
+.tab-body {
+  color: var(--ink-soft);
+  font-size: 0.96rem;
+  max-width: 78ch;
+}
+
+.feature-list {
+  margin: 0;
+  padding-inline-start: 20px;
+  display: grid;
+  gap: 8px;
+}
+
+/* Sticky buy bar (mobile) */
+.sticky-buy {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .sticky-buy {
+    position: fixed;
+    inset-inline: 0;
+    inset-block-end: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
+    background: rgba(251, 250, 247, 0.96);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -8px 24px -20px rgba(20, 32, 31, 0.5);
+    transform: translateY(110%);
+    visibility: hidden;
+    opacity: 0;
+    transition: transform 220ms ease, opacity 220ms ease, visibility 0s linear 220ms;
+  }
+  .sticky-buy.is-visible {
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+  .sticky-buy strong {
+    line-height: 1.45;
+  }
+  .sticky-buy .small {
+    line-height: 1.7;
+  }
+  .sticky-buy .btn {
+    min-width: 150px;
+  }
+}
+
+/* Account page */
+.account-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-block: 30px 22px;
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  flex: none;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #0f3d3e, #1d6b5f);
+  color: #f6f3ea;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.account-head__meta {
+  display: grid;
+  gap: 6px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-block-end: 22px;
+}
+
+.stat {
+  display: grid;
+  gap: 4px;
+  padding: 18px;
+}
+
+.stat strong {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.account-order {
+  display: grid;
+  grid-template-columns: 1.4fr auto auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.account-order:last-child {
+  border-bottom: 0;
+}
+
+.account-order:hover strong {
+  color: var(--brand-soft);
+}
+
+@media (max-width: 560px) {
+  .account-order {
+    grid-template-columns: 1fr auto;
+  }
+  .account-order > strong {
+    grid-column: 1 / -1;
+  }
+}

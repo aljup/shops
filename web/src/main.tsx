@@ -5,6 +5,7 @@ import App from './App';
 import { StoreProvider } from './store';
 import { ToastProvider } from './ui';
 import './styles.css';
+import './styles-pages.css';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>

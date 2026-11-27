@@ -185,7 +185,7 @@ p {
   padding: 0 5px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: #0b1211;
   font-size: 0.7rem;
   font-weight: 700;
   display: grid;
@@ -197,6 +197,27 @@ p {
 }
 
 @media (max-width: 860px) {
+  .header__bar {
+    height: 64px;
+    gap: 10px;
+  }
+  .logo {
+    font-size: 1.1rem;
+    gap: 8px;
+  }
+  .logo__mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+  .header__actions {
+    gap: 6px;
+  }
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+  }
   .nav {
     display: none;
   }
@@ -206,19 +227,39 @@ p {
   }
   .mobile-nav {
     display: grid;
-    gap: 6px;
-    padding: 10px 0 16px;
+    gap: 4px;
+    padding: 8px 0 14px;
     border-top: 1px solid var(--line);
+    max-height: calc(100dvh - 64px);
+    overflow-y: auto;
   }
-  .mobile-nav a {
-    padding: 10px 12px;
+  .mobile-nav a,
+  .mobile-nav__signout {
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    padding: 0 14px;
     border-radius: 12px;
     color: var(--ink-soft);
     font-weight: 600;
+    font-size: 0.98rem;
   }
   .mobile-nav a.active {
     background: var(--brand-tint);
     color: var(--brand);
+  }
+  .mobile-nav__signout {
+    border: 0;
+    background: transparent;
+    color: #8a2f24;
+    cursor: pointer;
+    text-align: start;
+  }
+}
+
+@media (max-width: 520px) {
+  .header__actions .btn--sm {
+    display: none;
   }
 }
 
@@ -262,10 +303,38 @@ p {
 
 .btn--accent {
   background: var(--accent);
+  color: #0b1211;
 }
 
 .btn--accent:hover:not(:disabled) {
-  background: #b3701a;
+  background: #bd7a1c;
+  color: #0b1211;
+}
+
+.btn--buy {
+  background: linear-gradient(180deg, #17605e 0%, #0f3d3e 100%);
+  color: #fff;
+  border: 1px solid #0b3233;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  box-shadow: 0 8px 18px -12px rgba(15, 61, 62, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.btn--buy:hover:not(:disabled) {
+  background: linear-gradient(180deg, #1b6d6a 0%, #12494a 100%);
+  color: #fff;
+  box-shadow: 0 10px 22px -12px rgba(15, 61, 62, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn--buy:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn--buy:disabled {
+  background: #b9c4c2;
+  color: #4d5a58;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 .btn--danger {
@@ -670,7 +739,13 @@ p {
   font-size: 1.7rem;
   font-weight: 800;
   color: var(--brand);
-  margin-block: 12px;
+  margin-block: 12px 2px;
+  line-height: 1.45;
+}
+
+.detail__price-note {
+  line-height: 1.8;
+  margin-block: 0 12px;
 }
 
 .detail__desc {
