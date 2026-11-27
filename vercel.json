@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build:all",
-  "installCommand": "npm install && npx prisma generate",
+  "installCommand": "npm install --include=dev && npm --prefix web install --include=dev && npx prisma@6.19.3 generate",
   "outputDirectory": "web/dist",
   "functions": {
     "api/index.js": {
