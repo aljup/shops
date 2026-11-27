@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+build/
+out/
+.env
+.env.local
+.env.*.local
+.env.example
+*.log
+.DS_Store
+dump.rdb
+*.tsbuildinfo
+prisma/*.db
+prisma/*.db-journal
